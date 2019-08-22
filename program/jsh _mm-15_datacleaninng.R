@@ -1,13 +1,14 @@
-﻿#jshmm-15 データクリーニング用プログラム
+#jshmm-15 データクリーニング用プログラム
 #kazumi takeuchi
 #2017/6/20
 #2018/05/28:# downloaded date上書き、データのアウトプットfile名の導出を修正
 #2018/06/14:#条件式を加える 箇所の式が働いておらず、as.characterを加えた式へ修正,# downloaded date上書き
 #2019/07/11:# downloaded date上書き
+#2019/08/22:# downloaded date上書き(Agata.K)
 
 setwd("../rawdata")
 list <- list.files()
-file.name <- sub("_190711_1144.*", "", list)  # downloaded date
+file.name <- sub("_190819_1415.*", "", list)  # downloaded date
 df.name <- sub(".*_", "", file.name)
 
 for (i in 1:length(list)) {
@@ -75,6 +76,6 @@ m_data$devi_diff_初期治療.最終投与日_死亡日 <- ifelse(m_data$diff_�
 m_data$devi_diff_初回サルベージ開始日_死亡日 <- ifelse(m_data$diff_初回サルベージ開始日_死亡日 <= 0, "", m_data$diff_初回サルベージ開始日_死亡日)
 
 #データのアウトプット
-output_data <- paste("jsh _mm-15_datacleaninng", "_190711_1144", ".csv", sep = "") # downloaded date
+output_data <- paste("jsh _mm-15_datacleaninng", "_190819_1415", ".csv", sep = "") # downloaded date
 setwd("../output")
 write.csv(m_data, output_data, row.names = F)
