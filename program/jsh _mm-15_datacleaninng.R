@@ -6,10 +6,11 @@
 #2019/07/11:# downloaded date上書き
 #2019/08/22:# downloaded date上書き(Agata.K)
 #2019/09/18:# downloaded date上書き(Agata.K)
+#2019/10/15:# downloaded date上書き(Agata.K)
 
 setwd("../rawdata")
 list <- list.files()
-file.name <- sub("_190918_1728.*", "", list)  # downloaded date
+file.name <- sub("_191015_1751.*", "", list)  # downloaded date
 df.name <- sub(".*_", "", file.name)
 
 for (i in 1:length(list)) {
