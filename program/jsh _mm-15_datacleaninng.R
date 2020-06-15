@@ -84,4 +84,4 @@ m_data$devi_diff_初回サルベージ開始日_死亡日 <- ifelse(m_data$diff_
 #データのアウトプット
 output_data <- paste("jsh _mm-15_datacleaninng", "_200605_1659", ".csv", sep = "") # downloaded date
 setwd("../output")
-write.csv(m_data, output_data, row.names = F)
+write.csv(m_data, output_data, row.names = F, na = "")
