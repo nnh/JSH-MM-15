@@ -3,18 +3,16 @@
 #2017/6/20
 #2018/05/28:# downloaded date上書き、データのアウトプットfile名の導出を修正
 #2018/06/14:#条件式を加える 箇所の式が働いておらず、as.characterを加えた式へ修正,# downloaded date上書き
-#2019/07/11:# downloaded date上書き
-#2019/08/22:# downloaded date上書き(Agata.K)
-#2019/09/18:# downloaded date上書き(Agata.K)
-#2019/10/15:# downloaded date上書き(Agata.K)
-#2019/12/05:# downloaded date上書き(Agata.K)
-#2019/12/16:# downloaded date上書き(Agata.K)
-#2020/01/06:# downloaded date上書き(Agata.K)
-#2020/06/15   日付のみ更新は履歴に載せない
+#2021/06/01:パス参照に関する処理を見直し（Agata.K）
 
-setwd("../rawdata")
+#setwd("../rawdata") 2021/6/1修正
+prtpath <- "//192.168.200.222/Datacenter/Trials/JSH/MM-15/04.03.02 定期モニタリングレポート/第5回/01_クリーニング/20210601"
+rawdatapath <- paste0(prtpath, "/rawdata")
+outputpath <-  paste0(prtpath, "/output")
+
+setwd(rawdatapath)
 list <- list.files()
-file.name <- sub("_200605_1659.*", "", list)  # downloaded date
+file.name <- sub("_210601_1118.*", "", list)  # downloaded date
 df.name <- sub(".*_", "", file.name)
 
 for (i in 1:length(list)) {
@@ -82,6 +80,9 @@ m_data$devi_diff_初期治療.最終投与日_死亡日 <- ifelse(m_data$diff_�
 m_data$devi_diff_初回サルベージ開始日_死亡日 <- ifelse(m_data$diff_初回サルベージ開始日_死亡日 <= 0, "", m_data$diff_初回サルベージ開始日_死亡日)
 
 #データのアウトプット
-output_data <- paste("jsh _mm-15_datacleaninng", "_200605_1659", ".csv", sep = "") # downloaded date
-setwd("../output")
+output_data <- paste("jsh _mm-15_datacleaninng", "_210601_1118", ".csv", sep = "") # downloaded date
+
+#setwd("../output")2021/6/1
+setwd(outputpath)
+
 write.csv(m_data, output_data, row.names = F, na = "")
