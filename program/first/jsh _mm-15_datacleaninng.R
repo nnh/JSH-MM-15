@@ -4,6 +4,7 @@
 #2018/05/28:# downloaded date上書き、データのアウトプットfile名の導出を修正
 #2018/06/14:#条件式を加える 箇所の式が働いておらず、as.characterを加えた式へ修正,# downloaded date上書き
 #2021/06/01:パス参照に関する処理を見直し（Agata.K）
+#test
 
 #setwd("../rawdata") 2021/6/1修正
 prtpath <- "//192.168.200.222/Datacenter/Trials/JSH/MM-15/04.03.02 定期モニタリングレポート/第5回/01_クリーニング/20210601"
