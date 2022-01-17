@@ -2,6 +2,7 @@
 # Program : jshmm15_datacleaning_2nd_program.R
 # Study : JSH-MM-15
 # Writer : Akihiro Sano
+<<<<<<< HEAD
 # 2022/1/17：定モニ用データセット作成プログラム仕様書変更のため修正
 ##################################################
 
@@ -38,6 +39,55 @@ transition22_1 <- transition22[, c("症例登録番号", "移行した病型の�
 secondcancer1 <- secondcancer[, c("症例登録番号", "二次発がん診断日")]
 discontinuation1 <- discontinuation[, c("症例登録番号", "中止日", "中止理由")]
 followup1 <- followup[, c("症例登録番号", "最終生存確認日", "死亡日", "死亡の原因")]
+=======
+##################################################
+
+setwd("//172.16.0.222/Stat/Others/sano/MM-15_sheets_191015_1751")　　
+list <- list.files()  # get the file name
+list
+
+file.name <- sub("_191015_1751.*", "", list)  # chnage downloaded date → ""
+file.name
+
+df.name <- sub(".*_", "", file.name)  # regular expression substitution
+df.name
+
+# name it again(allocation).
+df.name[1] <- c("allocation")
+df.name
+
+for (i in 1:length(list)){  
+  assign(df.name[i], read.csv(list[i], as.is =T, na.strings = c("")))  
+}
+
+View(allocation)
+names(allocation)
+allocation[1, 2]
+#  take out the labels
+View(registration)
+registration1 <- registration[, c("症例登録番号", "症例登録日")]
+registration1
+baseline1 <- baseline[, c("症例登録番号", "診断日")]  # 症候性骨髄腫baseline
+baselineEx1 <- baselineEx[, c("症例登録番号", "診断日")]  # 症候性骨髄腫以外baseline
+remitherapy1 <- remitherapy[, c("症例登録番号", "初回寛解導入療法.開始日")]
+transplant1 <- transplant[, c("症例登録番号", "初回移植日")]  # add
+constherapy1 <- constherapy[, c("症例登録番号", "地固め治療開始日")]　　# add
+maintetherapy1 <- maintetherapy[, c("症例登録番号", "維持治療開始日")]  # add
+initialtreatment1 <- initialtreatment[, c("症例登録番号", "奏効判定日", "初回PDの判定日", "初期治療.最終投与日")]  # add
+salvagetherapy1_1 <- salvagetherapy1[, c("症例登録番号", "初回サルベージ療法開始日")]　　
+salvagetherapy1out1 <- salvagetherapy1out[, c("症例登録番号", "初回サルベージ治療.奏効判定日", "初回サルベージ治療後の初回再発または増悪の判定日", "初回サルベージ療法開始後の最終無増悪生存確認日")]  # add
+salvagetherapy2_1 <- salvagetherapy2[, c("症例登録番号", "X2回目のサルベージ治療開始日")]  # add
+salvagetherapy3_1 <- salvagetherapy3[, c("症例登録番号", "X3回目のサルベージ治療開始日")]  # add
+radiationtherapy1 <- radiationtherapy[, c("症例登録番号", "放射線治療.照射開始日")]  # add
+transition11_1 <- transition11[, c("症例登録番号", "移行した病型の診断日")]  # add
+transition22_1 <- transition22[, c("症例登録番号", "移行した病型の診断日")]  # add
+secondcancer1 <- secondcancer[, c("症例登録番号", "二次発がん診断日")]  # add
+discontinuation1 <- discontinuation[, c("症例登録番号", "中止日", "中止理由")]  # add
+followup1 <- followup[, c("症例登録番号", "最終生存確認日", "死亡日", "死亡の原因")]　# add
+View(followup1)
+names(salvagetherapy2)
+
+>>>>>>> cac6d21519fb4d1cb3a9c34bf163184e8c8a7f59
 
 # give it new names
 names(baseline1)[2] <- c("症候性診断日")
@@ -47,15 +97,26 @@ names(remitherapy1)[2] <- c("寛解導入療法")
 names(transplant1)[2] <- c("初回移植")
 names(constherapy1)[2] <- c("地固め治療")
 names(maintetherapy1)[2] <- c("維持治療")
+<<<<<<< HEAD
 names(initialtreatment1)[2:4] <- c("奏効判定", "初回PD判定", "初期治療最終投与")
 names(salvagetherapy1_1)[2] <- c("初回サルベージ")
 names(salvagetherapy1out1)[2:4] <- c("初回サルベージ奏効", "初回サルベージ増悪", "初回サルベージ生存")
+=======
+names(initialtreatment1)[2:4] <- c("奏功判定", "初回PD判定", "初期治療最終投与")
+names(salvagetherapy1_1)[2] <- c("初回サルベージ")
+names(salvagetherapy1out1)[2:4] <- c("初回サルベージ奏功", "初回サルベージ増悪", "初回サルベージ生存")
+>>>>>>> cac6d21519fb4d1cb3a9c34bf163184e8c8a7f59
 names(salvagetherapy2_1)[2] <- c("2回サルベージ")
 names(salvagetherapy3_1)[2] <- c("3回サルベージ")
 names(radiationtherapy1)[2] <- c("照射開始")
 names(transition11_1)[2] <- c("症候性以外病型移行")
 names(transition22_1)[2] <- c("症候性病型移行")
 names(secondcancer1)[2] <- c("二次発がん")
+<<<<<<< HEAD
+=======
+names(followup1)[4] <- c("死因")
+View(initialtreatment1)
+>>>>>>> cac6d21519fb4d1cb3a9c34bf163184e8c8a7f59
 
 # edit allocation
 allocation[, 4] <- ifelse(allocation$診断分類 == "症候性以外", TRUE, FALSE)
@@ -63,6 +124,10 @@ allocation[, 5] <- ifelse(allocation$診断分類 == "症候性骨髄腫（症�
 names(allocation)[4] <- c("症候性以外_割付")
 names(allocation)[5] <- c("症候性_割付")
 allocation1 <- allocation[, c("症例登録番号", "症候性以外_割付", "症候性_割付")]
+<<<<<<< HEAD
+=======
+View(allocation1)
+>>>>>>> cac6d21519fb4d1cb3a9c34bf163184e8c8a7f59
 
 # merge
 # registration1, allocation1, baseline1, baselineEx1, remitherapy1, transplant1
@@ -94,6 +159,7 @@ View(m_data)
 
 # diff
 # as.chracterおよび、format = %Y/%m/%dははずしている
+<<<<<<< HEAD
 # 症候性以外骨髄腫
 m_data$症候性以外_症候性診断日 <-
   ifelse(
@@ -257,11 +323,177 @@ m_data$二次発がん_死亡日 <-
     as.Date(m_data$二次発がん) - as.Date(m_data$死亡日) <=0, "", as.Date(m_data$二次発がん) - as.Date(m_data$死亡日)
   )
 
+=======
+  # 症候性以外骨髄腫
+class(m_data$症候性_診断日)
+m_data$症候性以外_症候性診断日 <- 
+  ifelse(
+    as.Date(m_data$症候性以外診断日) - as.Date(m_data$症候性診断日) <=0, "", as.Date(m_data$症候性以外診断日) - as.Date(m_data$症候性診断日)
+         )
+m_data$症候性以外_照射開始 <- 
+  ifelse(
+    as.Date(m_data$症候性以外診断日) - as.Date(m_data$照射開始) <=0, "", as.Date(m_data$症候性以外診断日) - as.Date(m_data$照射開始)
+         )
+m_data$症候性以外_症候性以外病型移行 <- 
+  ifelse(
+    as.Date(m_data$症候性以外診断日) - as.Date(m_data$症候性以外病型移行) <=0, "", (as.Date(m_data$症候性以外診断日) - as.Date(m_data$症候性以外病型移行, format = "%Y/%m/%d"))
+         )
+m_data$照射開始_最終生存確認 <- 
+  ifelse(
+    as.Date(m_data$照射開始) - as.Date(m_data$最終生存確認日) <=0, "", as.Date(m_data$照射開始) - as.Date(m_data$最終生存確認日)
+         )
+m_data$症候性以外病型移行_最終生存確認 <-
+  ifelse(
+    as.Date(m_data$症候性以外病型移行) - as.Date(m_data$最終生存確認日) <=0, "", as.Date(m_data$症候性以外病型移行) - as.Date(m_data$最終生存確認日)
+         )
+m_data$症候性以外_最終生存確認 <- 
+  ifelse(
+    as.Date(m_data$症候性以外診断日) - as.Date(m_data$最終生存確認日) <=0, "", as.Date(m_data$症候性以外診断日) - as.Date(m_data$最終生存確認日) <=0
+         )
+m_data$照射開始_死亡日 <- 
+  ifelse(
+    as.Date(m_data$照射開始) - as.Date(m_data$死亡日) <=0, "", as.Date(m_data$照射開始) - as.Date(m_data$死亡日)
+         )
+m_data$症候性以外病型移行_死亡日 <- 
+  ifelse(
+    as.Date(m_data$症候性以外病型移行) - as.Date(m_data$死亡日) <= 0, "", as.Date(m_data$症候性以外病型移行) - as.Date(m_data$死亡日)
+         )
+m_data$症候性以外_死亡日 <- 
+  ifelse(
+    as.Date(m_data$症候性以外診断日) - as.Date(m_data$死亡日) <=0, "", as.Date(m_data$症候性以外診断日) - as.Date(m_data$死亡日)
+         )
+  # 症候性骨髄腫
+m_data$症候性_寛解導入療法 <- 
+  ifelse(
+    as.Date(m_data$症候性診断日) - as.Date(m_data$寛解導入療法) <=0, "", as.Date(m_data$症候性診断日) - as.Date(m_data$寛解導入療法)
+         )
+m_data$寛解導入療法_奏功判定 <- 
+  ifelse(
+    as.Date(m_data$寛解導入療法) - as.Date(m_data$奏功判定) <=0, "", as.Date(m_data$寛解導入療法) - as.Date(m_data$奏功判定)
+         )
+m_data$初回移植_地固め治療 <- 
+  ifelse(
+    as.Date(m_data$初回移植) - as.Date(m_data$地固め治療) <=0, "", as.Date(m_data$初回移植) - as.Date(m_data$地固め治療)
+         )
+m_data$初回移植_維持治療 <- 
+  ifelse(
+    as.Date(m_data$初回移植) - as.Date(m_data$維持治療) <=0, "", as.Date(m_data$初回移植) - as.Date(m_data$維持治療)
+         )
+m_data$初回移植_初回PD判定 <- 
+  ifelse(
+    as.Date(m_data$初回移植) - as.Date(m_data$初回PD判定) <=0, "", as.Date(m_data$初回移植) - as.Date(m_data$初回PD判定)
+         )
+m_data$奏功判定_初期治療最終投与 <- 
+  ifelse(
+    as.Date(m_data$奏功判定) - as.Date(m_data$初期治療最終投与) <=0, "", as.Date(m_data$奏功判定) - as.Date(m_data$初期治療最終投与)
+         )
+m_data$初期治療最終投与_初回PD判定 <- 
+  ifelse(
+    as.Date(m_data$初期治療最終投与) - as.Date(m_data$初回PD判定) <=0, "", as.Date(m_data$初期治療最終投与) - as.Date(m_data$初回PD判定)
+         )
+m_data$初回PD判定_初回サルベージ <- 
+  ifelse(
+    as.Date(m_data$初回PD判定) - as.Date(m_data$初回サルベージ) <=0, "", as.Date(m_data$初回PD判定) - as.Date(m_data$初回サルベージ)
+         )
+m_data$初回サルベージ_初回サルベージ奏功 <- 
+  ifelse(
+    as.Date(m_data$初回サルベージ) - as.Date(m_data$初回サルベージ奏功) <=0, "", as.Date(m_data$初回サルベージ) - as.Date(m_data$初回サルベージ奏功)
+         )
+m_data$初回サルベージ奏功_初回サルベージ増悪 <- 
+  ifelse(
+    as.Date(m_data$初回サルベージ奏功) - as.Date(m_data$初回サルベージ増悪) <=0, "", as.Date(m_data$初回サルベージ奏功) - as.Date(m_data$初回サルベージ増悪)
+         )
+m_data$初回サルベージ奏功_初回サルベージ生存 <- 
+  ifelse(
+    as.Date(m_data$初回サルベージ奏功) - as.Date(m_data$初回サルベージ生存) <=0, "", as.Date(m_data$初回サルベージ奏功) - as.Date(m_data$初回サルベージ増悪)
+         )
+m_data$初回サルベージ_2回サルベージ <- 
+  ifelse(
+    as.Date(m_data$初回サルベージ) - as.Date(m_data$`2回サルベージ`) <=0, "", as.Date(m_data$初回サルベージ) - as.Date(m_data$`2回サルベージ`)
+         )
+m_data$`2回サルベージ_3回サルベージ` <- 
+  ifelse(
+    as.Date(m_data$`2回サルベージ`) - as.Date(m_data$`3回サルベージ`) <=0, "", as.Date(m_data$`2回サルベージ`) - as.Date(m_data$`3回サルベージ`)
+         )
+m_data$症候性_症候性病型移行 <- 
+  ifelse(
+    as.Date(m_data$症候性診断日) - as.Date(m_data$症候性病型移行) <=0, "", as.Date(m_data$症候性診断日) - as.Date(m_data$症候性病型移行)
+         )
+m_data$症候性_二次発がん <- 
+  ifelse(
+    as.Date(m_data$症候性診断日) - as.Date(m_data$二次発がん) <=0, "", as.Date(m_data$症候性診断日) - as.Date(m_data$二次発がん)
+         )
+m_data$症候性_最終生存確認 <- 
+  ifelse(
+    as.Date(m_data$症候性診断日) - as.Date(m_data$最終生存確認日) <=0, "", as.Date(m_data$症候性診断日) - as.Date(m_data$最終生存確認日)
+         )
+m_data$寛解導入療法_最終生存確認 <-
+  ifelse(
+    as.Date(m_data$寛解導入療法) - as.Date(m_data$最終生存確認日) <=0, "", as.Date(m_data$寛解導入療法) - as.Date(m_data$最終生存確認日)
+         )
+m_data$初回移植_最終生存確認 <- 
+  ifelse(
+    as.Date(m_data$初回移植) - as.Date(m_data$最終生存確認日) <=0, "", as.Date(m_data$初回移植) - as.Date(m_data$最終生存確認日)
+         )
+m_data$奏功判定_最終生存確認 <- 
+  ifelse(
+    as.Date(m_data$奏功判定) - as.Date(m_data$最終生存確認) <=0, "", as.Date(m_data$奏功判定) - as.Date(m_data$最終生存確認)
+         )
+m_data$初期治療最終投与_最終生存確認 <- 
+  ifelse(
+    as.Date(m_data$初期治療最終投与) - as.Date(m_data$最終生存確認日) <=0, "", as.Date(m_data$初期治療最終投与) - as.Date(m_data$最終生存確認日)
+         )
+m_data$初回サルベージ_最終生存確認 <- 
+  ifelse(
+    as.Date(m_data$初回サルベージ) - as.Date(m_data$最終生存確認日) <=0, "", as.Date(m_data$初回サルベージ) - as.Date(m_data$最終生存確認日)
+         )
+m_data$症候性病型移行_最終生存確認 <- 
+  ifelse(
+    as.Date(m_data$症候性病型移行)- as.Date(m_data$最終生存確認) <=0, "", as.Date(m_data$症候性病型移行)- as.Date(m_data$最終生存確認)
+         )
+m_data$二次発がん_最終生存確認 <- 
+  ifelse(
+    as.Date(m_data$二次発がん) - as.Date(m_data$最終生存確認日) <=0, "", as.Date(m_data$二次発がん) - as.Date(m_data$最終生存確認日)
+         )
+m_data$症候性_死亡日 <- 
+  ifelse(
+    as.Date(m_data$症候性診断日) - as.Date(m_data$死亡日) <=0, "", as.Date(m_data$症候性診断日) - as.Date(m_data$死亡日)
+         )
+m_data$寛解導入療法_死亡日 <- 
+  ifelse(
+    as.Date(m_data$寛解導入療法) - as.Date(m_data$死亡日) <=0, "", as.Date(m_data$寛解導入療法) - as.Date(m_data$死亡日)
+         )
+m_data$初回移植_死亡日 <- 
+  ifelse(
+    as.Date(m_data$初回移植) - as.Date(m_data$死亡日) <=0, "", as.Date(m_data$初回移植) - as.Date(m_data$死亡日)
+         )
+m_data$奏功判定_死亡日 <- 
+  ifelse(
+    as.Date(m_data$奏功判定) - as.Date(m_data$死亡日) <=0, "", as.Date(m_data$奏功判定) - as.Date(m_data$死亡日)
+         )
+m_data$初期治療最終投与_死亡日 <- 
+  ifelse(
+    as.Date(m_data$初期治療最終投与) - as.Date(m_data$死亡日) <=0, "", as.Date(m_data$初期治療最終投与) - as.Date(m_data$死亡日)
+         )
+m_data$初回サルベージ_死亡日 <- 
+  ifelse(
+    as.Date(m_data$初回サルベージ) - as.Date(m_data$死亡日) <=0, "", as.Date(m_data$初回サルベージ) - as.Date(m_data$死亡日)
+         )
+m_data$症候性病型移行_死亡日 <- 
+  ifelse(
+    as.Date(m_data$症候性病型移行) - as.Date(m_data$死亡日) <=0, "", as.Date(m_data$症候性病型移行) - as.Date(m_data$死亡日)
+         )
+m_data$二次発がん_死亡日 <- 
+  ifelse(
+    as.Date(m_data$二次発がん) - as.Date(m_data$死亡日) <=0, "", as.Date(m_data$二次発がん) - as.Date(m_data$死亡日)
+         )
+>>>>>>> cac6d21519fb4d1cb3a9c34bf163184e8c8a7f59
 # diff(calculate the number of days)
 m_data$最終生存確認_中止日 <- as.Date(m_data$最終生存確認日) - as.Date(m_data$中止日)
 m_data$死亡日_中止日 <- as.Date(m_data$死亡日) - as.Date(m_data$中止日)
 
 # processing
+<<<<<<< HEAD
 m_data$症候性以外診断日確認 <- ifelse(
   as.Date(m_data$症候性以外診断日) -as.Date("2015-12-31") <=0, "←",""
 )
@@ -292,3 +524,20 @@ output_data <- paste("jsh_mm15_dataclelaning", "_20220117_1730", ".csv", sep = "
 output_data
 setwd("//172.16.0.222/Stat/Trials/JSH/JSH-MM-15_DC/output/second")
 write.csv(m_data, output_data, row.names = F, na = "")
+=======
+m_data$症候性以外診断日確認 <- ifelse(as.Date(m_data$症候性以外診断日) -as.Date("2015-12-31") <=0, "←","")
+m_data$症候性診断日確認 <- ifelse(as.Date(m_data$症候性診断日) - as.Date("2015-12-31") <=0, "←", "")
+m_data$初回PD判定確認 <- ifelse(is.na(m_data$初回PD判定)  & !(is.na(m_data$初回サルベージ)), "←", "")
+
+# reordering
+m_data <- m_data[, c(1:3, 6, 71, 4, 5, 72, 7:12, 73, 13:70)]
+
+
+# output
+output_data <- paste("jsh_mm15_dataclelaning", "_20210528_1455", ".csv", sep = "")
+output_data
+setwd("//172.16.0.222/Stat/Others/sano/output")
+write.csv(m_data, output_data, row.names = F, na = "")
+
+View(salvagetherapy2)
+>>>>>>> cac6d21519fb4d1cb3a9c34bf163184e8c8a7f59
